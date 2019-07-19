@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--<bean id="accountDao" class="com.lec.dao.impl.AccountDaoImpl"></bean>-->
 
@@ -91,9 +94,9 @@
         <constructor-arg name="birthday" type="java.util.Date" ref="now"></constructor-arg>
     </bean>-->
 
-    <bean id="now" class="java.util.Date"></bean>
+    <!--<bean id="now" class="java.util.Date"></bean>-->
 
-    <!-- 依赖注入：set方法注入>>比构造函数常用
+    <!-- 依赖注入：set方法注入[比构造函数常用]
         涉及的标签：property
         标签位置：bean标签内部
         标签属性：
@@ -105,11 +108,11 @@
          弊端：
             如果有某个函数必须有值，则获取对象时有可能set方法没有执行
     -->
-    <bean id="accountService" class="com.lec.service.impl.AccountServiceImpl">
+    <!--<bean id="accountService" class="com.lec.service.impl.AccountServiceImpl">
         <property name="name" value="Spring学习"></property>
         <property name="age" value="21"></property>
         <property name="birthday" ref="now"></property>
-    </bean>
+    </bean>-->
 
     <!-- 复杂类型的注入、结合类型的注入
         用于给List结构集合注入的标签：
@@ -118,7 +121,7 @@
             map、props
         结构相同，标签可以互换
     -->
-    <bean id="accountService2" class="com.lec.service.impl.AccountServiceImpl2">
+    <!--<bean id="accountService2" class="com.lec.service.impl.AccountServiceImpl2">
         <property name="myStrs">
             <array>
                 <value>AAA</value>
@@ -156,8 +159,13 @@
                 <prop key="PC">PCCC</prop>
             </props>
         </property>
-    </bean>
-    <!--  -->
+    </bean>-->
+
+
+    <!-- 通过注解注入：
+        ☆需要告知spring在创建容器时要扫描的包，配置所需要的标签不是在beans的约束中，而是一个名词为context名词空间和约束中
+    -->
+    <context:component-scan base-package="com.lec.*.impl"></context:component-scan>
     <!--  -->
     <!--  -->
 

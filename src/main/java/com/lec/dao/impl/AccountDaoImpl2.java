@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 /**
  *
  */
-@Repository("accountDao1")
-public class AccountDaoImpl implements AccountDao {
+@Repository("accountDao2")
+public class AccountDaoImpl2 implements AccountDao {
 
     @Override
     public void saveAccount() {
-        System.out.println("save account dao1");
+        System.out.println("save account dao2");
     }
 }

@@ -1,5 +1,6 @@
 package com.lec.ui;
 
+import com.lec.dao.AccountDao;
 import com.lec.service.AccountService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -8,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * <p>
  * ApplicationContext的三个常用实现类：
  * ClassPathXmlApplicationContext：加载类路径下的配置文件，要求配置文件必须在类路径下，否则加载不了。（重用）
- * FileSystemXmlApplicationConext：加载任意路径下的配置文件（必须要有访问权限）
+ * FileSystemXmlApplicationContext：加载任意路径下的配置文件（必须要有访问权限）
  * AnnotationConfigApplicationContext：读取注解创建容器
  * <p>
  * 核心容器的两个接口引发出的问题：
@@ -39,11 +40,14 @@ public class Client {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
 //        ApplicationContext context = new FileSystemXmlApplicationContext("E:\\2019\\spring\\src\\main\\resources\\bean.xml");
         //2.根据id获取bean对象
-        AccountService as = (AccountService) context.getBean("accountService2");
+        AccountService as = (AccountService) context.getBean("accountService");
+        //AccountService as2 = (AccountService) context.getBean("accountService");
+        //System.out.println(as == as2); // true：单例
         //AccountService actSvcIns = (AccountService) context.getBean("actSvcIns");
-        //AccountDao ad = context.getBean("accountDao", AccountDao.class);
+        //AccountDao ad = context.getBean("accountDaoImpl", AccountDao.class);
+        //System.out.println(ad);
         as.saveAccount();
-        System.out.println(as);
+        //System.out.println(as);
         //System.out.println(actSvcIns);
 
         //AccountService actSvcStatic = (AccountService) context.getBean("acctSvcStatic");
