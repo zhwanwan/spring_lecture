@@ -28,7 +28,8 @@ import java.util.List;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringConfiguration.class)
+//@ContextConfiguration(classes = SpringConfiguration.class)
+@ContextConfiguration(locations = "classpath:bean.xml")
 public class AccountServiceTest {
 
     /*private static final ApplicationContext context;
@@ -83,5 +84,10 @@ public class AccountServiceTest {
     @Test
     public void delete() {
         accountService.deleteAccount(3);
+    }
+
+    @Test
+    public void transfer(){
+        accountService.transfer("aaa","bbb",1050.0f);
     }
 }

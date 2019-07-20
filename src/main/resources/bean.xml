@@ -170,29 +170,45 @@
 
     <!-- 以下是基于XML配置的Account的测试 Start-->
     <!-- 配置Service -->
-    <!--<bean id="accountService" class="com.lec.ioc.service.impl.AccountServiceImpl">
-        &lt;!&ndash; 注入Dao &ndash;&gt;
+    <bean id="accountService" class="com.lec.ioc.service.impl.AccountServiceImpl">
+        <!-- 注入Dao -->
         <property name="accountDao" ref="accountDao"></property>
-    </bean>
-    &lt;!&ndash; 配置Dao对象 &ndash;&gt;
+        <!-- 注入transactionManager -->
+        <property name="transactionManager" ref="transactionManager"></property>
+     </bean>
+    <!-- 配置Dao对象 -->
     <bean id="accountDao" class="com.lec.ioc.dao.impl.AccountDaoImpl">
-        &lt;!&ndash; 注入Runner &ndash;&gt;
+        <!-- 注入Runner -->
         <property name="runner" ref="runner"></property>
-    </bean>-->
+        <!-- 注入connectionUtils -->
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
     <!-- 配置QueryRunner对象 -->
-    <!--<bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
-        &lt;!&ndash; 注入数据源 &ndash;&gt;
-        <constructor-arg name="ds" ref="datasource"></constructor-arg>
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+        <!-- 注入数据源 -->
+        <!--<constructor-arg name="ds" ref="datasource"></constructor-arg>-->
 
-    </bean>-->
+    </bean>
     <!-- 配置数据源对象 -->
-    <!--<bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        &lt;!&ndash; 注入连接数据库的必备信息 &ndash;&gt;
+    <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- 注入连接数据库的必备信息 -->
         <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sampdb"></property>
         <property name="user" value="root"></property>
         <property name="password" value="root"></property>
-     </bean>-->
+     </bean>
+
+    <!-- 配置ConnectionUtils -->
+    <bean id="connectionUtils" class="com.lec.utils.ConnectionUtils">
+        <!-- 注入数据源 -->
+        <property name="dataSource" ref="datasource"></property>
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="com.lec.utils.TransactionManager">
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
     <!-- 以上是基于XML配置的Account的测试 End-->
 
     <!--  -->

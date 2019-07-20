@@ -18,4 +18,11 @@ public interface AccountDao {
     void updateAccount(Account account);
 
     void deleteAccount(Integer id);
+
+    /**
+     * 查询账户
+     * @param name
+     * @return
+     */
+    Account findAccountByName(String name);
 }
