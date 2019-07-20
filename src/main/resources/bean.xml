@@ -167,6 +167,8 @@
     -->
     <context:component-scan base-package="com.lec.*.impl"></context:component-scan>
 
+
+    <!-- 以下是基于XML配置的Account的测试 Start-->
     <!-- 配置Service -->
     <bean id="accountService" class="com.lec.ioc.service.impl.AccountServiceImpl">
         <!-- 注入Dao -->
@@ -191,6 +193,8 @@
         <property name="user" value="root"></property>
         <property name="password" value="root"></property>
      </bean>
+    <!-- 以上是基于XML配置的Account的测试 End-->
+
     <!--  -->
     <!--  -->
 
