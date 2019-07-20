@@ -1,10 +1,12 @@
 package com.lec.ioc;
 
+import com.lec.config.SpringConfiguration;
 import com.lec.ioc.domain.Account;
 import com.lec.ioc.service.AccountService;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 
@@ -13,18 +15,28 @@ import java.util.List;
  */
 public class AccountServiceTest {
 
-    private static final ApplicationContext context;
+    /*private static final ApplicationContext context;
     private static final AccountService accountService;
 
     static {
-        context = new ClassPathXmlApplicationContext("bean.xml");
+        //context = new ClassPathXmlApplicationContext("bean.xml");
+        context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+        accountService = context.getBean("accountService", AccountService.class);
+    }*/
+
+    private ApplicationContext context;
+    private AccountService accountService;
+
+    @Before
+    public void init() {
+        context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
         accountService = context.getBean("accountService", AccountService.class);
     }
 
     @Test
     public void findAll() {
         List<Account> list = accountService.findAll();
-        System.out.println(list);
+        list.forEach(System.out::println);
     }
 
     @Test

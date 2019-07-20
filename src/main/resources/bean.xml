@@ -165,34 +165,34 @@
     <!-- 通过注解注入：
         ☆需要告知spring在创建容器时要扫描的包，配置所需要的标签不是在beans的约束中，而是一个名词为context名词空间和约束中
     -->
-    <context:component-scan base-package="com.lec.*.impl"></context:component-scan>
+    <!--<context:component-scan base-package="com.lec.*.impl"></context:component-scan>-->
 
 
     <!-- 以下是基于XML配置的Account的测试 Start-->
     <!-- 配置Service -->
-    <bean id="accountService" class="com.lec.ioc.service.impl.AccountServiceImpl">
-        <!-- 注入Dao -->
+    <!--<bean id="accountService" class="com.lec.ioc.service.impl.AccountServiceImpl">
+        &lt;!&ndash; 注入Dao &ndash;&gt;
         <property name="accountDao" ref="accountDao"></property>
     </bean>
-    <!-- 配置Dao对象 -->
+    &lt;!&ndash; 配置Dao对象 &ndash;&gt;
     <bean id="accountDao" class="com.lec.ioc.dao.impl.AccountDaoImpl">
-        <!-- 注入Runner -->
+        &lt;!&ndash; 注入Runner &ndash;&gt;
         <property name="runner" ref="runner"></property>
-    </bean>
+    </bean>-->
     <!-- 配置QueryRunner对象 -->
-    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
-        <!-- 注入数据源 -->
+    <!--<bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+        &lt;!&ndash; 注入数据源 &ndash;&gt;
         <constructor-arg name="ds" ref="datasource"></constructor-arg>
 
-    </bean>
+    </bean>-->
     <!-- 配置数据源对象 -->
-    <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <!-- 注入连接数据库的必备信息 -->
+    <!--<bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        &lt;!&ndash; 注入连接数据库的必备信息 &ndash;&gt;
         <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sampdb"></property>
         <property name="user" value="root"></property>
         <property name="password" value="root"></property>
-     </bean>
+     </bean>-->
     <!-- 以上是基于XML配置的Account的测试 End-->
 
     <!--  -->
