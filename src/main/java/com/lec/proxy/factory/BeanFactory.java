@@ -3,8 +3,6 @@ package com.lec.proxy.factory;
 import com.lec.ioc.service.AccountService;
 import com.lec.utils.TransactionManager;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
@@ -29,6 +27,8 @@ public class BeanFactory {
         AccountService proxyInstance = (AccountService) Proxy.newProxyInstance(accountService.getClass().getClassLoader(),
                 accountService.getClass().getInterfaces(),
                 (proxy, method, args) -> {
+                    if ("test".equals(method.getName()))
+                        return method.invoke(accountService, args);
                     Object rtValue = null;
                     try {
                         //1.开启事务

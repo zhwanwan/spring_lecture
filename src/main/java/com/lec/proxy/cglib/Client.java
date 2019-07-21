@@ -8,7 +8,7 @@ import org.springframework.cglib.proxy.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
- * 动态代理--基于子类的动态代理
+ * 动态代理--基于子类的动态代理(cglib)
  */
 public class Client {
 

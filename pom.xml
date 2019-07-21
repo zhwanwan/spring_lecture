@@ -64,10 +64,18 @@
             <version>5.0.10.RELEASE</version>
         </dependency>
 
+        <!-- 导入cglib的jar包：基于子类的动态代理 -->
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>2.1_3</version>
+        </dependency>
+
+        <!-- 解析切入点表达式 -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.1</version>
         </dependency>
 
 

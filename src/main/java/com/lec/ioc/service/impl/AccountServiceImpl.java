@@ -14,6 +14,7 @@ import java.util.List;
  * 事务控制应该在业务层
  * 通过动态代理实现事务控制：
  * com.lec.proxy.factory.BeanFactory
+ *
  */
 @Service("accountService")
 public class AccountServiceImpl implements AccountService {
