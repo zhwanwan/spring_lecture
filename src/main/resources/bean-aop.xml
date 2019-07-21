@@ -61,8 +61,23 @@
     <aop:config>
         <!-- 配置切面并且建立通知方法和切入点方法的关联 -->
         <aop:aspect id="logAdvice" ref="logger">
-            <aop:before method="printLog"
-                        pointcut="execution(* *..*.*(..))"></aop:before>
+
+            <aop:pointcut id="pt1" expression="execution(* com.lec.aop.service.impl.*.*(..))"/>
+
+            <!--<aop:before method="beforePrintLog" pointcut-ref="pt1"></aop:before>
+            <aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>
+            <aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt1"></aop:after-throwing>
+            <aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>-->
+            <!-- 配置切入点表达式：
+                标签：aop:pointcut
+                    属性：
+                        id:指定表达式的唯一标识；
+                        expression：指定表达式内容
+                此标签写在aop:aspect标签内部只能当前切面使用
+                它还可以写在aop:aspect标签外部，此时所有切面都可以使用；如果写在aop:aspect标签外部，那么它要定义在所有通知方法的前面
+            -->
+            <!-- 配置环绕通知 -->
+            <aop:around method="aroundPrintLog" pointcut-ref="pt1"></aop:around>
         </aop:aspect>
     </aop:config>
 

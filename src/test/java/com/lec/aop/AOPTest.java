@@ -14,7 +14,5 @@ public class AOPTest {
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:bean-aop.xml");
         AccountService accountService = (AccountService) context.getBean("accountService");
         accountService.saveAccount();
-        accountService.updateAccount(2);
-        accountService.deleteAccount();
     }
 }
