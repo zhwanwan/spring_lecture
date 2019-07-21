@@ -169,12 +169,24 @@
 
 
     <!-- 以下是基于XML配置的Account的测试 Start-->
+
+    <!-- 配置代理的Service -->
+    <bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"></bean>
+
+    <!-- 配置BeanFactory -->
+    <bean id="beanFactory" class="com.lec.proxy.factory.BeanFactory">
+        <!-- 注入Service -->
+        <property name="accountService" ref="accountService"></property>
+        <!-- 注入transactionManager -->
+        <property name="transactionManager" ref="transactionManager"></property>
+    </bean>
+
     <!-- 配置Service -->
     <bean id="accountService" class="com.lec.ioc.service.impl.AccountServiceImpl">
         <!-- 注入Dao -->
         <property name="accountDao" ref="accountDao"></property>
-        <!-- 注入transactionManager -->
-        <property name="transactionManager" ref="transactionManager"></property>
+        <!--&lt;!&ndash; 注入transactionManager &ndash;&gt;
+        <property name="transactionManager" ref="transactionManager"></property>-->
      </bean>
     <!-- 配置Dao对象 -->
     <bean id="accountDao" class="com.lec.ioc.dao.impl.AccountDaoImpl">

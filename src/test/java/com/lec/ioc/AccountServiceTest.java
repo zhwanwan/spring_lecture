@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -51,6 +52,7 @@ public class AccountServiceTest {
     }*/
 
     @Autowired
+    @Qualifier("proxyAccountService")
     private AccountService accountService;
 
     @Test
@@ -88,6 +90,7 @@ public class AccountServiceTest {
 
     @Test
     public void transfer(){
+        System.out.println("transfer...");
         accountService.transfer("aaa","bbb",1050.0f);
     }
 }

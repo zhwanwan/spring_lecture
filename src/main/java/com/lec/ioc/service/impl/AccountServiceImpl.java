@@ -12,6 +12,8 @@ import java.util.List;
 /**
  * 账户的业务层实现类
  * 事务控制应该在业务层
+ * 通过动态代理实现事务控制：
+ * com.lec.proxy.factory.BeanFactory
  */
 @Service("accountService")
 public class AccountServiceImpl implements AccountService {
@@ -19,11 +21,11 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountDao accountDao;
 
-    private TransactionManager transactionManager;
+    /*private TransactionManager transactionManager;
 
     public void setTransactionManager(TransactionManager transactionManager) {
         this.transactionManager = transactionManager;
-    }
+    }*/
 
     public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
@@ -31,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> findAll() {
-        try {
+        /*try {
             //1.开启事务
             transactionManager.beginTransaction();
             //2.执行操作
@@ -47,7 +49,8 @@ public class AccountServiceImpl implements AccountService {
         } finally {
             //6.释放连接
             transactionManager.release();
-        }
+        }*/
+        return accountDao.findAll();
     }
 
     @Override
@@ -73,7 +76,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void transfer(String sourceName, String targetName, Float money) {
 
-        try {
+        /*try {
             //1.开启事务
             transactionManager.beginTransaction();
             //2.执行操作
@@ -102,7 +105,24 @@ public class AccountServiceImpl implements AccountService {
         } finally {
             //6.释放连接
             transactionManager.release();
-        }
+        }*/
+
+        //2.1.查询转出账户
+        Account source = accountDao.findAccountByName(sourceName);
+        //2.2.查询转入账户
+        Account target = accountDao.findAccountByName(targetName);
+        //2.3.转出账户扣钱
+        source.setMoney(source.getMoney() - money);
+        //2.4.转出账户加钱
+        target.setMoney(target.getMoney() + money);
+        //2.5.更新转出账户
+        accountDao.updateAccount(source);
+
+        //故意报错
+        //int i = 1 / 0;
+
+        //2.6.更新转入账户
+        accountDao.updateAccount(target);
 
 
     }
