@@ -1,29 +1,37 @@
 package com.lec.utils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
 
 /**
  * 记录日志的工具类
  */
+@Component
+@Aspect //当前类是一个切面
 public class Logger {
 
-    /**
-     * 打印日志，计划让其在切入点方法执行之前执行
-     */
+    @Pointcut("execution(* com.lec.aop.service.impl.*.*(..))")
+    private void pt1(){}
+
+    //@Before("pt1()")
     public void beforePrintLog() {
-        System.out.println("beforePrintLog");
+        System.out.println("前置通知beforePrintLog");
     }
 
+    //@AfterReturning("pt1()")
     public void afterReturningPrintLog(){
-        System.out.println("afterReturningPrintLog");
+        System.out.println("后置通知afterReturningPrintLog");
     }
 
+    //@AfterThrowing("pt1()")
     public void afterThrowingPrintLog(){
-        System.out.println("afterThrowingPrintLog");
+        System.out.println("异常通知afterThrowingPrintLog");
     }
 
+    //@After("pt1()")
     public void afterPrintLog(){
-        System.out.println("afterPrintLog");
+        System.out.println("最终通知afterPrintLog");
     }
 
     /**
@@ -36,6 +44,7 @@ public class Logger {
      *  Spring提供了一个接口：ProceedJoinPoint。该接口有一个processed()方法，此方法就相当于明确调用了切入点方法。
      *  该接口可以作为环绕通知的方法参数，在程序执行时，spring会提供该接口的实现类。
      */
+    @Around("pt1()")
     public Object aroundPrintLog(ProceedingJoinPoint pjp){
         try {
             Object rtValue = null;

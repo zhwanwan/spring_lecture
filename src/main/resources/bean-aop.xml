@@ -2,13 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
-        https://www.springframework.org/schema/aop/spring-aop.xsd">
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 配置spring的IOC,把Service对象配置进来 -->
-    <bean id="accountService" class="com.lec.aop.service.impl.AccountServiceImpl"></bean>
+    <!--<bean id="accountService" class="com.lec.aop.service.impl.AccountServiceImpl"></bean>-->
 
     <!-- spring中基于XML的AOP配置
         1.把通知的bean也交给spring来管理
@@ -55,31 +58,40 @@
     -->
 
     <!-- 配置logger对象 -->
-    <bean id="logger" class="com.lec.utils.Logger"></bean>
+    <!--<bean id="logger" class="com.lec.utils.Logger"></bean>-->
 
     <!-- 配置AOP -->
-    <aop:config>
-        <!-- 配置切面并且建立通知方法和切入点方法的关联 -->
+    <!--<aop:config>
+        &lt;!&ndash; 配置切面并且建立通知方法和切入点方法的关联 &ndash;&gt;
         <aop:aspect id="logAdvice" ref="logger">
 
             <aop:pointcut id="pt1" expression="execution(* com.lec.aop.service.impl.*.*(..))"/>
 
-            <!--<aop:before method="beforePrintLog" pointcut-ref="pt1"></aop:before>
+            &lt;!&ndash;<aop:before method="beforePrintLog" pointcut-ref="pt1"></aop:before>
             <aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>
             <aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt1"></aop:after-throwing>
-            <aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>-->
-            <!-- 配置切入点表达式：
+            <aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>&ndash;&gt;
+            &lt;!&ndash; 配置切入点表达式：
                 标签：aop:pointcut
                     属性：
                         id:指定表达式的唯一标识；
                         expression：指定表达式内容
                 此标签写在aop:aspect标签内部只能当前切面使用
                 它还可以写在aop:aspect标签外部，此时所有切面都可以使用；如果写在aop:aspect标签外部，那么它要定义在所有通知方法的前面
-            -->
-            <!-- 配置环绕通知 -->
+            &ndash;&gt;
+            &lt;!&ndash; 配置环绕通知 &ndash;&gt;
             <aop:around method="aroundPrintLog" pointcut-ref="pt1"></aop:around>
         </aop:aspect>
-    </aop:config>
+    </aop:config>-->
+
+    <!-- 以下是基于注解的AOP配置 -->
+    <!-- 配置spring创建容器时要扫描的包 -->
+    <context:component-scan base-package="com.lec.aop"></context:component-scan>
+    <context:component-scan base-package="com.lec.utils"></context:component-scan>
+
+    <!-- 配置spring开启注解AOP的支持 -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
 
 
 

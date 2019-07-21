@@ -1,6 +1,7 @@
 package com.lec.aop.service.impl;
 
 import com.lec.aop.service.AccountService;
+import org.springframework.stereotype.Service;
 
 /**
  * 账户的业务层实现类
@@ -26,11 +27,12 @@ import com.lec.aop.service.AccountService;
  * Aspect(切面):
  *  Aspect是切入和通知(介入)的结合。
  */
+@Service("accountService")
 public class AccountServiceImpl implements AccountService {
 
     @Override
     public void saveAccount() {
-//        int i = 1/0;
+        int i = 1/0;
         System.out.println("saveAccount");
     }
 
