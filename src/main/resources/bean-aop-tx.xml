@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Spring事务：
+
+        PlatformTransactionManager >> 事务管理
+        TransactionDefinition >>事务定义
+
+        事务传播行为：
+        1.REQUIRED
+            如果当前没有事务，就新建一个事务；如果已经存在一个事务，就加入到这个事务中。（默认）
+        2.SUPPORTS
+            支持当前事务，如果当前没有事务，就以非事务方式执行(没有事务)
+        3.MANDATORY
+            使用当前的事务，如果当前没有事务，则抛出异常
+        4.REQUIRED_NEW
+            新建事务，如果当前在事务中，则把当前事务挂起
+        5.NOT_SUPPORTED
+            以非事务方式运行，如果当前存在事务，就把当前事务挂起
+        6.NEVER
+            以非事务方式运行，如果当前存在事务，则抛出异常
+        7.NESTED
+            如果当前存在事务，则在嵌套事务内执行；如果当前没有事务，则执行REQUIRED类似的操作
+
+        TransactionStatus >> 事务状态
+
+
+     -->
+
+    <!-- 基于XML的声明方式控制事务 -->
+
+
+
+
+</beans>
