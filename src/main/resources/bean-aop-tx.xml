@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/aop
         https://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
-
     <!-- Spring事务：
 
         PlatformTransactionManager >> 事务管理
+
         TransactionDefinition >>事务定义
 
         事务传播行为：
@@ -36,9 +40,67 @@
 
      -->
 
-    <!-- 基于XML的声明方式控制事务 -->
+    <!-- 基于XML的声明方式控制事务 Start -->
+    <!--<bean id="accountService" class="com.lec.tx.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
 
+    <bean id="accountDao" class="com.lec.jdbc.template.dao.impl.AccountDaoImpl2">
+        <property name="dataSource" ref="datasource"></property>
+    </bean>-->
 
+    <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- 注入连接数据库的必备信息 -->
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sampdb"></property>
+        <property name="user" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
+
+    <!-- 1.配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="datasource"></property>
+    </bean>
+
+    <!-- 2.配置事务的通知 -->
+    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        &lt;!&ndash; 5.配置事务的属性：
+            isolation="" 隔离级别，默认DEFAULT，表示数据库的默认隔离级别。
+            propagation="" 事务传播行为，默认REQUIRED，表示一定会有事务，增删改的选择，查询可以用SUPPORTS。
+            read-only="" 指定只读事务
+            rollback-for="" 指定一个事务异常，当产生异常时，事务回滚；产生其他异常时，事务不回滚。没有默认值，任何异常都回滚。
+            no-rollback-for="" 指定一个事务异常，当产生异常时，事务不回滚；产生其他异常时，事务回滚。没有默认值，任何异常都回滚。
+            timeout="" 事务的超时时间，默认-1表示不超时，如果指定了数值，单位为秒。
+         &ndash;&gt;
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>-->
+
+    <!-- 配置aop -->
+    <!--<aop:config>
+        &lt;!&ndash; 3.配置切入点表达式 &ndash;&gt;
+        <aop:pointcut id="pt1" expression="execution(* com.lec.tx.service.impl.*.*(..))"/>
+        &lt;!&ndash; 4.建立切入点表达式和事务通知的对应关系 &ndash;&gt;
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pt1"></aop:advisor>
+    </aop:config>-->
+
+    <!-- 基于XML的声明方式控制事务 End -->
+
+    <!-- 基于注解的声明方式控制事务:
+        1.配置事务管理器
+        2.开启Spring对注解事务的支持
+        3.在需要事务支持的地方使用@Transaction注解
+     -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="datasource"></property>
+    </bean>
+
+    <context:component-scan base-package="com.lec.tx"></context:component-scan>
+    <context:component-scan base-package="com.lec.jdbc.template.dao"></context:component-scan>
+    <!-- 开启Spring对注解事务的支持 -->
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
 
 
 </beans>
